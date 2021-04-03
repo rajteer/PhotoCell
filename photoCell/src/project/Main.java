@@ -8,6 +8,5 @@ public class Main
 	{	
 		PhotoEffect window = new PhotoEffect();
 		window.setVisible(true);
-		
 	}
 }
