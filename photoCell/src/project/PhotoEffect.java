@@ -1,6 +1,8 @@
 package project;
 
-public class PhotoEffect {
+import javax.swing.JFrame;
+
+public class PhotoEffect extends JFrame {
 
 	PhotoEffect()
 	{

@@ -6,8 +6,8 @@ public class ElectroMagneticWave {
 	
 	final static long speedOfLight = 299792458; //m/s
 	final static double planckConstant = 4.13566 * Math.pow(10, -15); //eV * s
-	static private final double Gamma = 0.80;
-	static private final double IntensityMax = 255;
+	static private final double gamma = 0.80;
+	static private final double intensityMax = 255;
 	
 	float waveLength; //nm
 	float frequency; //THz
@@ -15,13 +15,21 @@ public class ElectroMagneticWave {
 	int intensity; //%
 	Color color; //RGB
 	
-	public ElectroMagneticWave(float lambda) {
+	public ElectroMagneticWave(float lambda) 
+	{
 		waveLength = lambda;
-		frequency = speedOfLight / (waveLength * 1000);
-		photonEnergy = planckConstant * frequency;
+		frequency = waveLengthToFrequency();
+		photonEnergy =  photonEnergy();
+		color = waveLengthToColor();
+		intensity = 100;
 	}
 	
-	public void waveLengthToColor(float waveLength)
+	public float photonEnergy()
+	{
+		return (float) (planckConstant * frequency);
+	}
+	
+	public Color waveLengthToColor()
 	{	
 		double factor;
 	    double Red, Green, Blue;
@@ -68,21 +76,20 @@ public class ElectroMagneticWave {
 
 	    int[] rgb = new int[3];
 
-	    rgb[0] = Red == 0.0 ? 0 : (int)Math.round(IntensityMax * Math.pow(Red * factor, Gamma));
-	    rgb[1] = Green == 0.0 ? 0 : (int)Math.round(IntensityMax * Math.pow(Green * factor, Gamma));
-	    rgb[2] = Blue == 0.0 ? 0 : (int)Math.round(IntensityMax * Math.pow(Blue * factor, Gamma));
+	    rgb[0] = Red == 0.0 ? 0 : (int)Math.round(intensityMax * Math.pow(Red * factor, gamma));
+	    rgb[1] = Green == 0.0 ? 0 : (int)Math.round(intensityMax * Math.pow(Green * factor, gamma));
+	    rgb[2] = Blue == 0.0 ? 0 : (int)Math.round(intensityMax * Math.pow(Blue * factor, gamma));
 	    
-	    color = new Color(rgb[0], rgb[1], rgb[2]);
-	    
+	    return new Color(rgb[0], rgb[1], rgb[2], intensity * 255/100);
 	}
 	
-	public void waveLengthToFrequency()
+	public float waveLengthToFrequency()
 	{
-		frequency = speedOfLight / (waveLength * 1000);
+		return frequency = speedOfLight / (waveLength * 1000);
 	}
 	
-	public void frequencyToWaveLength()
+	public float frequencyToWaveLength()
 	{
-		waveLength = speedOfLight / (frequency * 1000);
-	}
+		return waveLength = speedOfLight / (frequency * 1000);
+	}	
 }
