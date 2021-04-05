@@ -1,3 +1,4 @@
+//Julia Sieruta | Paweł Rajter
 package project;
 
 import java.awt.Color;
