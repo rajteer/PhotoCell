@@ -1,5 +1,6 @@
 package project;
 
-public class BreakVoltagePlot {
+public class BreakVoltagePlot
+{
 
 }
