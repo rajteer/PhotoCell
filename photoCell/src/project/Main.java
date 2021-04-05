@@ -6,7 +6,9 @@ public class Main
 	
 	public static void main(String[] args)
 	{	
-		PhotoEffect window = new PhotoEffect();
-		window.setVisible(true);
+		//PhotoEffect window = new PhotoEffect();
+		//window.setVisible(true);
+		Interface mainFrame = new Interface();
+		mainFrame.setVisible(true);
 	}
 }
