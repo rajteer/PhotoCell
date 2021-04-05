@@ -1,9 +1,9 @@
 package project;
 
-import javax.swing.JFrame;
-
 public class Main
 {	
+	static ElectroMagneticWave wave = new ElectroMagneticWave(PhotoCellSettings.sliderWaveLengthMin);
+	
 	public static void main(String[] args)
 	{	
 		PhotoEffect window = new PhotoEffect();

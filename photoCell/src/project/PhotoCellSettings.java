@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JSlider;
+import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -23,13 +24,9 @@ import javax.swing.event.ChangeListener;
 
 public class PhotoCellSettings extends JFrame 
 {	
-	int frequency;
-	int length;
-	int intensity;
-	
 	//sliders used to make changes in ElectroMagneticWave class
 	JSlider sliderWaveLength;
-	int  sliderWaveLengthMin= 380; 
+	static int  sliderWaveLengthMin= 380; 
 	int sliderWaveLengthMax = 780;
 	
 	JSlider sliderWaveFrequency;
@@ -44,6 +41,7 @@ public class PhotoCellSettings extends JFrame
 	JTextField textFieldWaveLength;
 	JTextField textFieldWaveFrequency;
 	JTextField textFieldLightIntensity;
+	JSpinner spinnerLightIntensity;
 	
 	//slider captions
 	JLabel labelWaveLength;
@@ -67,8 +65,6 @@ public class PhotoCellSettings extends JFrame
 	
 	JFrame frame = new JFrame();
 	
-	ElectroMagneticWave wave = new ElectroMagneticWave(sliderWaveLengthMin);
-	
 	PhotoCellSettings()
 	{
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -79,7 +75,7 @@ public class PhotoCellSettings extends JFrame
 		
 		panelElectroMagneticWaveSpectre = new JPanel();
 		panelElectroMagneticWaveSpectre.setLayout(new FlowLayout());
-		panelElectroMagneticWaveSpectre.setBackground(wave.color);
+		panelElectroMagneticWaveSpectre.setBackground(Main.wave.color);
 
 		this.add(panelElectroMagneticWaveSpectre);
 		
@@ -120,10 +116,12 @@ public class PhotoCellSettings extends JFrame
 					number = Integer.parseInt(text);
 					if(number >= 380 && number <= 780 )
 					{
-						wave.frequency = number;
-						wave.frequencyToWaveLength();
-						sliderWaveLength.setValue((int)wave.waveLength);
-						sliderWaveFrequency.setValue((int)wave.frequency);		
+						Main.wave.length = number;
+						Main.wave.waveLengthToColor();
+						sliderWaveLength.setValue((int) Main.wave.length);
+						sliderWaveFrequency.setValue((int) Main.wave.frequency);	
+						Main.wave.photonEnergy =  Main.wave.photonEnergy();
+						labelElectroMagneticWaveValue.setText(String.valueOf( Main.wave.photonEnergy) + " eV");
 					}
 					else
 					{
@@ -166,12 +164,15 @@ public class PhotoCellSettings extends JFrame
 				try
 				{
 					number = Integer.parseInt(text);
+					
 					if(number >= 380 && number <= 780 )
 					{
-						wave.frequency = number;
-						wave.frequencyToWaveLength();
-						sliderWaveLength.setValue((int)wave.waveLength);
-						sliderWaveFrequency.setValue((int)wave.frequency);		
+						Main.wave.frequency = number;
+						Main.wave.frequencyToWaveLength();
+						sliderWaveLength.setValue((int)Main.wave.length);
+						sliderWaveFrequency.setValue((int)Main.wave.frequency);	
+						Main.wave.photonEnergy = Main.wave.photonEnergy();
+						labelElectroMagneticWaveValue.setText(String.valueOf(Main.wave.photonEnergy) + " eV");
 					}
 					else
 					{
@@ -215,8 +216,8 @@ public class PhotoCellSettings extends JFrame
 					number = Integer.parseInt(text);
 					if(number >= 0 && number <= 100)
 					{
-						wave.intensity = number;
-						sliderLightIntensity.setValue((int)wave.intensity);		
+						Main.wave.intensity = number;
+						sliderLightIntensity.setValue((int)Main.wave.intensity);		
 					}
 					else
 					{
@@ -240,7 +241,7 @@ public class PhotoCellSettings extends JFrame
 		labelElectroMagneticWaveInfo = new JLabel("Energia fotonu: ");
 		panelElectroMagneticWaveInfo.add(labelElectroMagneticWaveInfo);
 		labelElectroMagneticWaveValue = new JLabel();
-		labelElectroMagneticWaveValue.setText(String.valueOf(wave.photonEnergy) + " eV");
+		labelElectroMagneticWaveValue.setText(String.valueOf(Main.wave.photonEnergy) + " eV");
 		panelElectroMagneticWaveInfo.add(labelElectroMagneticWaveValue);
 	}
 	
@@ -251,11 +252,19 @@ public class PhotoCellSettings extends JFrame
 	       {
 	           String value = String.format("%d", sliderWaveLength.getValue());
 	           
-	           length = Integer.parseInt(value);
+	           Main.wave.length= Integer.parseInt(value);
+	           Main.wave.frequency =  Main.wave.waveLengthToFrequency();
+	           
 	           textFieldWaveLength.setText(value);
-	           sliderWaveFrequency.setValue((int)(ElectroMagneticWave.speedOfLight / (length * 1000)));
-	           wave.waveLength = length;
-	           panelElectroMagneticWaveSpectre.setBackground(wave.color);
+	           
+	           textFieldWaveFrequency.setText(String.valueOf((int)( Main.wave.frequency)));
+	           sliderWaveFrequency.setValue((int)( Main.wave.frequency));
+	           
+	           Main.wave.color =  Main.wave.waveLengthToColor();
+	           panelElectroMagneticWaveSpectre.setBackground( Main.wave.color);
+	           
+	           Main.wave.photonEnergy =  Main.wave.photonEnergy();
+	           labelElectroMagneticWaveValue.setText(String.valueOf( Main.wave.photonEnergy) + " eV");
 	       }
 	}
 	
@@ -265,12 +274,21 @@ public class PhotoCellSettings extends JFrame
 	       public void stateChanged(ChangeEvent e) 
 	       {
 			 String value = String.format("%d", sliderWaveFrequency.getValue());
-			 wave.frequency = Integer.parseInt(value);
-			 wave.photonEnergy = wave.photonEnergy();
-			 labelElectroMagneticWaveValue.setText(String.valueOf(wave.photonEnergy) + " eV");
-			 wave.color = wave.waveLengthToColor();
+			 
+			 Main.wave.frequency = Integer.parseInt(value);
+			 Main.wave.length =  Main.wave.frequencyToWaveLength();
+	           
 			 textFieldWaveFrequency.setText(value);
-			 sliderWaveLength.setValue((int)(ElectroMagneticWave.speedOfLight / (frequency * 1000)));
+			 
+			 textFieldWaveLength.setText(String.valueOf((int)( Main.wave.length)));
+			 sliderWaveLength.setValue((int)( Main.wave.length));
+	           
+			 Main.wave.color =  Main.wave.waveLengthToColor();
+			 panelElectroMagneticWaveSpectre.setBackground( Main.wave.color);
+	           
+			 Main.wave.photonEnergy =  Main.wave.photonEnergy();
+			 labelElectroMagneticWaveValue.setText(String.valueOf( Main.wave.photonEnergy) + " eV");
+			 
 	       }
 	 }	
 	
@@ -280,9 +298,9 @@ public class PhotoCellSettings extends JFrame
 	       public void stateChanged(ChangeEvent e) 
 	       {
 	           String value = String.format("%d", sliderLightIntensity.getValue());
-	           wave.intensity = Integer.parseInt(value);
+	           Main.wave.intensity = Integer.parseInt(value);
 	           textFieldLightIntensity.setText(value);
-	           panelElectroMagneticWaveSpectre.setBackground(wave.color);
+	           panelElectroMagneticWaveSpectre.setBackground( Main.wave.color);
 	       }
 	 }
 	
@@ -290,6 +308,7 @@ public class PhotoCellSettings extends JFrame
 	{
 		PhotoCellSettings window = new PhotoCellSettings();
 		window.setVisible(true);
+		window.setResizable(false);
 		window.setTitle("Sliders");
 	}
 }
