@@ -1,20 +1,16 @@
 package project;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JSlider;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
@@ -22,7 +18,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 
-public class PhotoCellSettings extends JFrame 
+public class PhotoCellSettings extends JPanel 
 {	
 	//sliders used to make changes in ElectroMagneticWave class
 	JSlider sliderWaveLength;
@@ -67,11 +63,9 @@ public class PhotoCellSettings extends JFrame
 	
 	PhotoCellSettings()
 	{
-		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.setLayout(new GridLayout(5,1));
 		
 		this.setSize(600,300);
-		this.setResizable(true);
 		
 		panelElectroMagneticWaveSpectre = new JPanel();
 		panelElectroMagneticWaveSpectre.setLayout(new FlowLayout());
@@ -303,12 +297,4 @@ public class PhotoCellSettings extends JFrame
 	           panelElectroMagneticWaveSpectre.setBackground( Main.wave.color);
 	       }
 	 }
-	
-	public static void main(String[] args)
-	{
-		PhotoCellSettings window = new PhotoCellSettings();
-		window.setVisible(true);
-		window.setResizable(false);
-		window.setTitle("Sliders");
-	}
 }
