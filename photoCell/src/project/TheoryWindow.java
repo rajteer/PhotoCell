@@ -10,7 +10,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 
-public class TheoryWindow extends JFrame {
+public class TheoryWindow extends JFrame 
+{
 	JPanel panelTheoryWindow;
 	JTextPane textPaneTheoryWindow;
 	JScrollPane scrollPaneTheoryWindow;

@@ -25,7 +25,8 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.border.EmptyBorder;
 
-public class Interface2 extends JFrame {
+public class Interface2 extends JFrame 
+{
 	
 	JMenuBar topMenuBar;
 	JMenu menu, elementsSubMenu;
