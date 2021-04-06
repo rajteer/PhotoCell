@@ -123,9 +123,9 @@ public class Interface extends JFrame
     			else
     			{
     				selectedTheme = "lightMode";
-    				topPanel.setBackground(new Color(192,192,192));
-    				leftCenterPanel.setBackground(new Color(192,192,192));
-    				rightCenterPanel.setBackground(new Color(192,192,192));
+    				topPanel.setBackground(new Color(105,105,105));
+    				leftCenterPanel.setBackground(new Color(105,105,105));
+    				rightCenterPanel.setBackground(new Color(105,105,105));
     			}
         	}
     	});
