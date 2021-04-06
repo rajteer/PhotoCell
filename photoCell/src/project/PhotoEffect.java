@@ -48,7 +48,7 @@ public class PhotoEffect extends JPanel
 	    setSize(size);
 	    setLayout(null);
 	    
-	  //new font
+	    //new font
  		Font font = Font.createFont(Font.TRUETYPE_FONT, input1);
  	    font = font.deriveFont(Font.BOLD,24);
  	    GraphicsEnvironment ge =
@@ -56,7 +56,7 @@ public class PhotoEffect extends JPanel
  	    ge.registerFont(font);
 	    
 	    
-		//przyciski rozpocz�cia i zako�czenia animacji
+		//begin and end animation
 		startButton= new JButton("Rozpocznij");
 		startButton.setSize(new Dimension(110, 25));
 		startButton.setLocation(130, 460);
@@ -69,29 +69,14 @@ public class PhotoEffect extends JPanel
 		endButton.setFont(f);
 		add(endButton);
 		
-		//slider napi�cia na bateri wy�wietlaj�cy si� na woltomierzu
+		//slider of voltage
 	  	voltageSlider= new JSlider(JSlider.HORIZONTAL,-8, 8, 0);
 	  	voltageSlider.setMinorTickSpacing(2);
 	  	voltageSlider.setMajorTickSpacing(4);
-	  	//voltageSlider.setPaintTicks(true);
-	  	//voltageSlider.setPaintLabels(true);
 	  	voltageSlider.setSize(new Dimension(180, 30));//70
 	  	voltageSlider.setLocation(150, 420);
-	 
-	  	add(voltageSlider);
 	  	
-	  //woltomierz
-	    voltmeterTextField=new JTextField(String.format("%d", voltageSlider.getValue()));
-	    voltmeterTextField.setSize(new Dimension(20, 40));
-	    voltmeterTextField.setFont(font);
-	    voltmeterTextField.setHorizontalAlignment(JTextField.CENTER); //centering text in JTextField
-	    voltmeterTextField.setEditable(false);
-		add(voltmeterTextField);
-		voltmeterTextField.setSize(70,30);
-		voltmeterTextField.setLocation(210, 260);
-
-		//zdarzenia
-	 	voltageSlider.addChangeListener(new ChangeListener()
+	  	voltageSlider.addChangeListener(new ChangeListener()
 	    {           
 	        @Override
 	        public void stateChanged(ChangeEvent evt)
@@ -99,11 +84,25 @@ public class PhotoEffect extends JPanel
 	            voltmeterTextField.setText(voltageSlider.getValue()+"V");
 	        }
 	    });
+	 
+	  	add(voltageSlider);
+	  	
+	  	//voltmeter
+	    voltmeterTextField=new JTextField(String.format("%d", voltageSlider.getValue()));
+	    voltmeterTextField.setSize(new Dimension(30, 40));
+	    voltmeterTextField.setFont(font);
+	    voltmeterTextField.setHorizontalAlignment(JTextField.CENTER); //centering text in JTextField
+	    voltmeterTextField.setEditable(false);
+		add(voltmeterTextField);
+		voltmeterTextField.setSize(70,30);
+		voltmeterTextField.setLocation(210, 260);
+
+	 	
 	}
-		//tło panelu to układ pomiarowy 
-	  public void paintComponent(Graphics g) 
-	  {
-	    g.drawImage(img, 0, 0, null);
-	  }
+		
+	public void paintComponent(Graphics g) 
+	{
+		g.drawImage(img, 0, 0, null);
+	}
 	
 }

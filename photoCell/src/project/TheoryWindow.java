@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Font;
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -16,7 +17,7 @@ public class TheoryWindow extends JFrame
 	JTextPane textPaneTheoryWindow;
 	JScrollPane scrollPaneTheoryWindow;
 	 
-	public TheoryWindow() 
+	public TheoryWindow() throws IOException 
 	{
 		this.setSize(800,600);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -30,8 +31,7 @@ public class TheoryWindow extends JFrame
 	    
 	    try
 	    {
-	           File file = new File("C:\\Users\\pawel\\OneDrive\\Pulpit\\authors.txt");
-	           //File file = new File("authors.txt");
+	           File file = new File(getClass().getResource("theoryInfo.txt").getFile());
 	           FileReader fr = new FileReader(file);
 	           while(fr.read() != -1){
 	             textPaneTheoryWindow.read(fr,null);
@@ -51,7 +51,9 @@ public class TheoryWindow extends JFrame
 	    panelTheoryWindow.add(scrollPaneTheoryWindow,BorderLayout.CENTER);
 	    setContentPane(panelTheoryWindow);
 	}	
-	public static void main(String[] args)
+	
+	
+	public static void main(String[] args) throws IOException
 	{
 		TheoryWindow window = new TheoryWindow();
 		window.setVisible(true);

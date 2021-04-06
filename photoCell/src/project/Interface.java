@@ -56,16 +56,19 @@ public class Interface extends JFrame
 	
 	Interface() throws FontFormatException, IOException
 	{
-		try {
-	    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) 
-	    {
-	        if ("Windows Classic".equals(info.getName())) {
-	            UIManager.setLookAndFeel(info.getClassName());
-	            break;
-	        }
-	    }
-		} catch (Exception e) {
-		    // If Nimbus is not available, you can set the GUI to another look and feel.
+		try 
+		{
+		    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) 
+		    {
+		        if ("Windows Classic".equals(info.getName())) {
+		            UIManager.setLookAndFeel(info.getClassName());
+		            break;
+		        }
+		    }
+		} catch (Exception e) 
+		{
+			
+			System.err.println("Couldn't find class for specified look and feel");
 		}
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setSize(640,480);
@@ -81,7 +84,9 @@ public class Interface extends JFrame
 		
 		saveButton = new JButton("Zapisz dane");
 		topPanel.add(saveButton);
-		topPanel.add(Box.createRigidArea(new Dimension(1000,30)));
+		
+		//break
+		topPanel.add(Box.createRigidArea(new Dimension(650,30)));
 		
 		exitButton = new JButton("Zakończ");
 		exitButton.setForeground(Color.RED);
@@ -118,9 +123,9 @@ public class Interface extends JFrame
     			else
     			{
     				selectedTheme = "lightMode";
-    				topPanel.setBackground(new Color(105,105,105));
-    				leftCenterPanel.setBackground(new Color(105,105,105));
-    				rightCenterPanel.setBackground(new Color(105,105,105));
+    				topPanel.setBackground(new Color(192,192,192));
+    				leftCenterPanel.setBackground(new Color(192,192,192));
+    				rightCenterPanel.setBackground(new Color(192,192,192));
     			}
         	}
     	});
@@ -145,8 +150,15 @@ public class Interface extends JFrame
 			
 			public void actionPerformed(ActionEvent e) 
 			{
-				TheoryWindow moreInformationPanel = new TheoryWindow();
-				moreInformationPanel.setVisible(true);
+				TheoryWindow moreInformationPanel;
+				try {
+					moreInformationPanel = new TheoryWindow();
+					moreInformationPanel.setVisible(true);
+				} catch (IOException e1) 
+				{
+					e1.printStackTrace();
+				}
+				
 			}
 		});
 		
@@ -233,7 +245,7 @@ public class Interface extends JFrame
 			public void actionPerformed(ActionEvent e) 
 			{
 				JOptionPane.showMessageDialog(
-						informationWindow, "Aplikacja wykonana przez zespół Fotokomórka w ramach projektu na przedmiot Programowanie Obiektowe",
+						informationWindow, "Aplikacja wykonana przez zespół Fotokomórka w składzie: Julia Sieruta oraz Paweł Rajter, w ramach projektu na przedmiot Programowanie obiektowe.",
                             "Informacje",
                             JOptionPane.PLAIN_MESSAGE);
 			}
@@ -285,7 +297,8 @@ public class Interface extends JFrame
 	public static void main(String[] args) throws FontFormatException, IOException
 	{
 		Interface window = new Interface();
-		window.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+		window.setSize(1000,800);
+		//window.setExtendedState(JFrame.MAXIMIZED_BOTH); 
 		window.setVisible(true);
 		window.setTitle("Fotokomórka");
 	}
