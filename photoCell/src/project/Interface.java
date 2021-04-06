@@ -59,7 +59,7 @@ public class Interface extends JFrame
 		menuButton.setBounds(10, 30, 89, 23);
 		menuButton.setFont(f);
 		menuBar.add(menuButton);	
-		dane = new JMenuItem("Wy�wietl dane");
+		dane = new JMenuItem("Wyświetl dane");
 		dane.setFont(f);
 		menu.add(dane);
 		infor = new JMenuItem("Informacje");
@@ -81,7 +81,7 @@ public class Interface extends JFrame
 		be = new JMenuItem("Be-Beryl");
 		be.setFont(f);
 		submenu.add(be);
-		fe = new JMenuItem("Fe-�elazo");
+		fe = new JMenuItem("Fe-Żelazo");
 		fe.setFont(f);
 		submenu.add(fe);
 		ag = new JMenuItem("Ag-Srebro");
@@ -112,7 +112,7 @@ public class Interface extends JFrame
 		languageOption.setPreferredSize(new Dimension(10,20));
 	    menuBar.add(languageOption);
 		
-	    exit = new JButton("Zako�cz");
+	    exit = new JButton("Zakończ");
 	    exit.setBackground(Color.RED);
 	    exit.setFont(f);
 		menuBar.add(exit);
@@ -137,7 +137,7 @@ public class Interface extends JFrame
 			public void actionPerformed(ActionEvent e) 
 			{
 				JOptionPane.showMessageDialog(
-                            okno, "Aplikacja wykonana przez zesp� Fotokom�rka w ramach projektu na przedmiot Programowanie Obiektowe \n Hello I'm Julia Nice to meet you",
+                            okno, "Aplikacja wykonana przez zespół Fotokomórka w ramach projektu na przedmiot Programowanie Obiektowe ",
                             "Informacje",
                             JOptionPane.PLAIN_MESSAGE);
 				
