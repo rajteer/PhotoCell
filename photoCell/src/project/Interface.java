@@ -4,31 +4,30 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.FontFormatException;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.IOException;
 
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
-import javax.swing.JSlider;
-import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
+import javax.swing.plaf.basic.BasicMenuBarUI;
 
 
 public class Interface extends JFrame 
@@ -46,6 +45,7 @@ public class Interface extends JFrame
 	
 	public Interface()
 	{
+		
 		Font f = new Font("Monospaced", Font.BOLD, 12);
 		Font f1 = new Font("Monospaced", Font.BOLD, 24);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -54,12 +54,12 @@ public class Interface extends JFrame
 		menuBar = new JMenuBar();
 		menuBar.setFont(f);
 		
-		//menu g³ówne
+		//menu gï¿½ï¿½wne
 		menuButton = new JButton("Menu");
 		menuButton.setBounds(10, 30, 89, 23);
 		menuButton.setFont(f);
 		menuBar.add(menuButton);	
-		dane = new JMenuItem("Wyœwietl dane");
+		dane = new JMenuItem("Wyï¿½wietl dane");
 		dane.setFont(f);
 		menu.add(dane);
 		infor = new JMenuItem("Informacje");
@@ -81,7 +81,7 @@ public class Interface extends JFrame
 		be = new JMenuItem("Be-Beryl");
 		be.setFont(f);
 		submenu.add(be);
-		fe = new JMenuItem("Fe-¯elazo");
+		fe = new JMenuItem("Fe-ï¿½elazo");
 		fe.setFont(f);
 		submenu.add(fe);
 		ag = new JMenuItem("Ag-Srebro");
@@ -104,7 +104,7 @@ public class Interface extends JFrame
 		motyw.setFont(f);
 		menuBar.add(motyw);
 		
-		//zmiana jêzyka
+		//zmiana jï¿½zyka
 		String[] language = { "angielski", "francuski", "polski"};
 		languageOption = new JComboBox<String>(language);
 		languageOption.setSelectedIndex(2);
@@ -112,7 +112,7 @@ public class Interface extends JFrame
 		languageOption.setPreferredSize(new Dimension(10,20));
 	    menuBar.add(languageOption);
 		
-	    exit = new JButton("Zakoñcz");
+	    exit = new JButton("Zakoï¿½cz");
 	    exit.setBackground(Color.RED);
 	    exit.setFont(f);
 		menuBar.add(exit);
@@ -137,7 +137,7 @@ public class Interface extends JFrame
 			public void actionPerformed(ActionEvent e) 
 			{
 				JOptionPane.showMessageDialog(
-                            okno, "Aplikacja wykonana przez zespó³ Fotokomórka w ramach projektu na przedmiot Programowanie Obiektowe \n Hello I'm Julia Nice to meet you",
+                            okno, "Aplikacja wykonana przez zespï¿½ Fotokomï¿½rka w ramach projektu na przedmiot Programowanie Obiektowe \n Hello I'm Julia Nice to meet you",
                             "Informacje",
                             JOptionPane.PLAIN_MESSAGE);
 				
@@ -152,25 +152,28 @@ public class Interface extends JFrame
 			{
 				
 				int n = JOptionPane.showConfirmDialog(
-						okno, "Czy pewno zakoñczyæ?",
-                        "Zakoñcz",
+						okno, "Czy pewno zakoï¿½czyï¿½?",
+                        "Zakoï¿½cz",
                         JOptionPane.YES_NO_OPTION);
 	
 				if (n == JOptionPane.YES_OPTION) 
 		        	dispose();	
 			}
 		});
+
 		
 	}
 	
 	public static void main(String[] args)
 	{
-		//tworzenie g³ównego okna
+		//tworzenie gï¿½ï¿½wnego okna
 		Interface mainFrame = new Interface();
 		mainFrame.setLayout(new BorderLayout());
 		//dodane panele
-		PhotoEffect panel=new PhotoEffect(new ImageIcon("C:\\Users\\User\\Desktop\\pht3.png").getImage());
+		PhotoEffect panel=new PhotoEffect();
+		PhotoCellSettings panel1= new PhotoCellSettings();
 		mainFrame.getContentPane().add(panel);
+		mainFrame.add(panel1, BorderLayout.LINE_END);
 		mainFrame.setBounds(500, 500, 900, 600);
 		mainFrame.setVisible(true);
 	}

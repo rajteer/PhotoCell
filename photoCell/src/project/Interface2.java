@@ -125,7 +125,7 @@ public class Interface2 extends JFrame {
 			
 			public void actionPerformed(ActionEvent e) 
 			{
-				TheoryWindow moreInformationPanel = new TheoryWindow("authors.txt");
+				TheoryWindow moreInformationPanel = new TheoryWindow();
 				moreInformationPanel.setVisible(true);
 			}
 		});
@@ -212,7 +212,7 @@ public class Interface2 extends JFrame {
 			
 			public void actionPerformed(ActionEvent e) 
 			{
-				TheoryWindow moreInformationPanel = new TheoryWindow("authors.txt");
+				TheoryWindow moreInformationPanel = new TheoryWindow();
 				moreInformationPanel.setVisible(true);
 			}
 		});
@@ -226,7 +226,7 @@ public class Interface2 extends JFrame {
 		
 		rightCenterPanel = new JPanel();
 		
-		PhotoEffect photoEffectPanel = new PhotoEffect("C:\\Users\\pawel\\OneDrive\\Pulpit\\Projekt\\pht3.png");
+		PhotoEffect photoEffectPanel = new PhotoEffect();
 		PhotoCellSettings  photoCellSettingsPanel = new PhotoCellSettings();
 		
 		//OnOffToggle animationTogglePanel = new OnOffToggle();

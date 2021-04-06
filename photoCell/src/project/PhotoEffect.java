@@ -1,11 +1,13 @@
 package project;
 
-
-
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.io.IOException;
+import java.io.InputStream;
+
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -23,14 +25,17 @@ public class PhotoEffect extends JPanel
 	JButton endButton;
 	JSlider voltageSlider;
 	
-	  public PhotoEffect(String img)
-	  {
-	    this(new ImageIcon(img).getImage());
-	  }
-	  
-	public PhotoEffect(Image img)
+	public PhotoEffect()
 	{
-	    this.img = img;
+		InputStream input = getClass().getResourceAsStream("pht3.png");
+		try {                
+			 img = ImageIO.read(input);
+ 		} 
+		catch (IOException e) 
+		{
+ 			System.err.println("Blad odczytu obrazka");
+ 			e.printStackTrace();
+		}
 	    Dimension size = new Dimension(500,300);
 	    Font f = new Font("Monospaced", Font.BOLD, 12);
 	    Font f1 = new Font("Monospaced", Font.BOLD, 24);
@@ -41,7 +46,7 @@ public class PhotoEffect extends JPanel
 	    setLayout(null);
 	    
 	    
-		//przyciski rozpoczêcia i zakoñczenia animacji
+		//przyciski rozpoczï¿½cia i zakoï¿½czenia animacji
 		startButton= new JButton("Rozpocznij");
 		startButton.setSize(new Dimension(110, 25));
 		startButton.setLocation(130, 460);
@@ -54,7 +59,7 @@ public class PhotoEffect extends JPanel
 		endButton.setFont(f);
 		add(endButton);
 		
-		//slider napiêcia na bateri wyœwietlaj¹cy siê na woltomierzu
+		//slider napiï¿½cia na bateri wyï¿½wietlajï¿½cy siï¿½ na woltomierzu
 	  	voltageSlider= new JSlider(JSlider.HORIZONTAL,-8, 8, 0);
 	  	voltageSlider.setMinorTickSpacing(2);
 	  	voltageSlider.setMajorTickSpacing(4);
@@ -84,7 +89,7 @@ public class PhotoEffect extends JPanel
 	        }
 	    });
 	}
-		//t³o panelu to uk³ad pomiarowy 
+		//tï¿½o panelu to ukï¿½ad pomiarowy 
 	  public void paintComponent(Graphics g) 
 	  {
 	    g.drawImage(img, 0, 0, null);
