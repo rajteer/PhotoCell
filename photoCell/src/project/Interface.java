@@ -290,6 +290,12 @@ public class Interface extends JFrame
 		centerPanel.add(leftCenterPanel);
 		centerPanel.add(rightCenterPanel);
 		
+		rightCenterPanel.setLayout(new BorderLayout());
+		PlotPanel rightTopPanel=new PlotPanel();
+		rightCenterPanel.add(rightTopPanel, BorderLayout.NORTH);
+		
+		
+		
 		
 		this.add(centerPanel, BorderLayout.CENTER);
 	}
@@ -298,7 +304,6 @@ public class Interface extends JFrame
 	{
 		Interface window = new Interface();
 		window.setSize(1000,800);
-		//window.setExtendedState(JFrame.MAXIMIZED_BOTH); 
 		window.setVisible(true);
 		window.setTitle("Fotokomórka");
 	}
