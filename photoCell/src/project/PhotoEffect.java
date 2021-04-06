@@ -2,7 +2,9 @@ package project;
 
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics;
+import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,14 +22,15 @@ public class PhotoEffect extends JPanel
 {
 
 	private Image img;
-	JTextField voltmeter;
+	JTextField voltmeterTextField;
 	JButton startButton;
 	JButton endButton;
 	JSlider voltageSlider;
 	
-	public PhotoEffect()
+	public PhotoEffect() throws FontFormatException, IOException
 	{
 		InputStream input = getClass().getResourceAsStream("pht3.png");
+		InputStream input1 = getClass().getResourceAsStream("CursedTimerUlil-Aznm.ttf");
 		try {                
 			 img = ImageIO.read(input);
  		} 
@@ -44,6 +47,13 @@ public class PhotoEffect extends JPanel
 	    setMaximumSize(size);
 	    setSize(size);
 	    setLayout(null);
+	    
+	  //new font
+ 		Font font = Font.createFont(Font.TRUETYPE_FONT, input1);
+ 	    font = font.deriveFont(Font.BOLD,24);
+ 	    GraphicsEnvironment ge =
+ 	    GraphicsEnvironment.getLocalGraphicsEnvironment();
+ 	    ge.registerFont(font);
 	    
 	    
 		//przyciski rozpocz�cia i zako�czenia animacji
@@ -65,19 +75,20 @@ public class PhotoEffect extends JPanel
 	  	voltageSlider.setMajorTickSpacing(4);
 	  	//voltageSlider.setPaintTicks(true);
 	  	//voltageSlider.setPaintLabels(true);
-	  	voltageSlider.setSize(new Dimension(150, 30));//70
+	  	voltageSlider.setSize(new Dimension(180, 30));//70
 	  	voltageSlider.setLocation(150, 420);
 	 
 	  	add(voltageSlider);
 	  	
 	  //woltomierz
-	    voltmeter=new JTextField(String.format("%d", voltageSlider.getValue()));
-	    voltmeter.setSize(new Dimension(20, 40));
-	    voltmeter.setFont(f1);
-	   // voltmeter.setEditable(false);
-		add(voltmeter);
-		voltmeter.setSize(70,30);
-		voltmeter.setLocation(210, 260);
+	    voltmeterTextField=new JTextField(String.format("%d", voltageSlider.getValue()));
+	    voltmeterTextField.setSize(new Dimension(20, 40));
+	    voltmeterTextField.setFont(font);
+	    voltmeterTextField.setHorizontalAlignment(JTextField.CENTER); //centering text in JTextField
+	    voltmeterTextField.setEditable(false);
+		add(voltmeterTextField);
+		voltmeterTextField.setSize(70,30);
+		voltmeterTextField.setLocation(210, 260);
 
 		//zdarzenia
 	 	voltageSlider.addChangeListener(new ChangeListener()
@@ -85,11 +96,11 @@ public class PhotoEffect extends JPanel
 	        @Override
 	        public void stateChanged(ChangeEvent evt)
 	        {
-	            voltmeter.setText(voltageSlider.getValue()+"V");
+	            voltmeterTextField.setText(voltageSlider.getValue()+"V");
 	        }
 	    });
 	}
-		//t�o panelu to uk�ad pomiarowy 
+		//tło panelu to układ pomiarowy 
 	  public void paintComponent(Graphics g) 
 	  {
 	    g.drawImage(img, 0, 0, null);

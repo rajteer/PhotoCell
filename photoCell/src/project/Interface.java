@@ -2,149 +2,90 @@ package project;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics;
+import java.awt.FlowLayout;
+import java.awt.FontFormatException;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.io.IOException;
 
 import javax.swing.Box;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.JPopupMenu;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
-import javax.swing.plaf.basic.BasicMenuBarUI;
-
+import javax.swing.border.EmptyBorder;
 
 public class Interface extends JFrame 
 {
-	JMenuBar menuBar;
-	JMenu submenu;
-	JMenuItem dane, infor, oprog;
-	JMenuItem cs, yb, v, be, fe, ag;
-	JButton menuButton, saveButton, exit;
-	JCheckBox motyw;
+	
+	JMenuBar topMenuBar;
+	JMenu menu, elementsSubMenu;
+	
+	JRadioButton colorTheme;
+	
 	JComboBox<String> languageOption;
-	String[] language = { "angielski", "francuski", "polski"};
-	static JOptionPane okno = new JOptionPane();
-	final JPopupMenu menu = new JPopupMenu();
+	String[] languageSelection = { "angielski", "francuski", "polski"};
 	
-	public Interface()
+	JButton saveButton, exitButton;
+
+	JMenuItem showData, moreInformation, aboutProgram;
+	JMenuItem elementYtterbium, elementVanadium, elementCaesium, elementBeryl, elementFerrum, elementArgentum;
+	
+	JPanel topPanel, centerPanel, leftCenterPanel, rightCenterPanel;
+	
+	String choosedElement = "Cez";
+	String selectedTheme = "lightTheme";
+	
+	JFrame optionFrame;
+	static JOptionPane informationWindow = new JOptionPane();
+
+	
+	Interface() throws FontFormatException, IOException
 	{
+		try {
+	    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) 
+	    {
+	        if ("Windows Classic".equals(info.getName())) {
+	            UIManager.setLookAndFeel(info.getClassName());
+	            break;
+	        }
+	    }
+		} catch (Exception e) {
+		    // If Nimbus is not available, you can set the GUI to another look and feel.
+		}
+		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        this.setSize(640,480);
+        this.setLayout(new BorderLayout());
+        
+        JMenuBar menuBar = new JMenuBar();
+		this.setJMenuBar(menuBar);
+		JMenu menu = new JMenu("Menu");
+		menuBar.add(menu);
 		
-		Font f = new Font("Monospaced", Font.BOLD, 12);
-		Font f1 = new Font("Monospaced", Font.BOLD, 24);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		topPanel = new JPanel();
+		topPanel.setLayout(new FlowLayout());
 		
-		//pasek menu
-		menuBar = new JMenuBar();
-		menuBar.setFont(f);
+		saveButton = new JButton("Zapisz dane");
+		topPanel.add(saveButton);
+		topPanel.add(Box.createRigidArea(new Dimension(1000,30)));
 		
-		//menu g��wne
-		menuButton = new JButton("Menu");
-		menuButton.setBounds(10, 30, 89, 23);
-		menuButton.setFont(f);
-		menuBar.add(menuButton);	
-		dane = new JMenuItem("Wyświetl dane");
-		dane.setFont(f);
-		menu.add(dane);
-		infor = new JMenuItem("Informacje");
-		infor.setFont(f);
-		menu.add(infor);
-		menu.addSeparator();
-		submenu = new JMenu("Metal");
-		submenu.setFont(f);
-		menu.add(submenu);
-		cs = new JMenuItem("Cs-Cez");
-		cs.setFont(f);
-		submenu.add(cs);
-		yb = new JMenuItem("Yb-Iterb");
-		yb.setFont(f);
-		submenu.add(yb);
-		v = new JMenuItem("V-Wanad");
-		v.setFont(f);
-		submenu.add(v);
-		be = new JMenuItem("Be-Beryl");
-		be.setFont(f);
-		submenu.add(be);
-		fe = new JMenuItem("Fe-Żelazo");
-		fe.setFont(f);
-		submenu.add(fe);
-		ag = new JMenuItem("Ag-Srebro");
-		ag.setFont(f);
-		submenu.add(ag);
-		oprog = new JMenuItem("O programie");
-		oprog.setFont(f);
-		menu.add(oprog);
-		
-		//przycisk zapisu danych pomiarowych
-		saveButton= new JButton("Zapisz dane");
-		saveButton.setFont(f);
-		menuBar.add(saveButton);
-		
-		//przerwa
-		menuBar.add(Box.createRigidArea(new Dimension(300,30)));
-		
-		//zmiana motywu aplikacji
-		JCheckBox motyw=new JCheckBox("Tryb ciemny");	
-		motyw.setFont(f);
-		menuBar.add(motyw);
-		
-		//zmiana j�zyka
-		String[] language = { "angielski", "francuski", "polski"};
-		languageOption = new JComboBox<String>(language);
-		languageOption.setSelectedIndex(2);
-		languageOption.setFont(f);
-		languageOption.setPreferredSize(new Dimension(10,20));
-	    menuBar.add(languageOption);
-		
-	    exit = new JButton("Zakończ");
-	    exit.setBackground(Color.RED);
-	    exit.setFont(f);
-		menuBar.add(exit);
-		
-		setJMenuBar(menuBar);
-	
-		
-		//Zdarzenia
-		menuButton.addMouseListener((MouseListener) new MouseAdapter() 
-		{
-			public void mouseReleased(MouseEvent e)
-			{
-		    if ( e.getButton() == 1 )
-		    {
-		    	menu.show(e.getComponent(), e.getX(), e.getY());
-		    }
-		    }
-		});
-		oprog.addActionListener(new ActionListener() 
-		{
-			
-			public void actionPerformed(ActionEvent e) 
-			{
-				JOptionPane.showMessageDialog(
-                            okno, "Aplikacja wykonana przez zespół Fotokomórka w ramach projektu na przedmiot Programowanie Obiektowe ",
-                            "Informacje",
-                            JOptionPane.PLAIN_MESSAGE);
-				
-			}
-		});
-		
-		exit.addActionListener(new ActionListener() 
+		exitButton = new JButton("Zakończ");
+		exitButton.setForeground(Color.RED);
+		exitButton.addActionListener(new ActionListener() 
 		{
 			
 			@Override
@@ -152,29 +93,200 @@ public class Interface extends JFrame
 			{
 				
 				int n = JOptionPane.showConfirmDialog(
-						okno, "Czy pewno zako�czy�?",
-                        "Zako�cz",
+						optionFrame, "Czy pewno zakonczyc?",
+                        "Zakoncz",
                         JOptionPane.YES_NO_OPTION);
 	
 				if (n == JOptionPane.YES_OPTION) 
 		        	dispose();	
 			}
 		});
-
 		
+		colorTheme = new JRadioButton("Tryb ciemny");
+		colorTheme.addActionListener(new ActionListener() 
+    	{
+    		@Override
+        	public void actionPerformed(ActionEvent e)
+        	{
+    			if(selectedTheme == "lightMode")
+    			{
+    				selectedTheme = "darkMode";
+    				topPanel.setBackground(Color.WHITE);
+    				leftCenterPanel.setBackground(Color.WHITE);
+    				rightCenterPanel.setBackground(Color.WHITE);
+    			}
+    			else
+    			{
+    				selectedTheme = "lightMode";
+    				topPanel.setBackground(new Color(105,105,105));
+    				leftCenterPanel.setBackground(new Color(105,105,105));
+    				rightCenterPanel.setBackground(new Color(105,105,105));
+    			}
+        	}
+    	});
+		colorTheme.setActionCommand("DarkMode");
+		topPanel.add(colorTheme);
+		
+		
+		
+		languageOption = new JComboBox<String>(languageSelection);
+		languageOption.setSelectedIndex(2);
+		topPanel.add(languageOption);
+		
+		topPanel.add(exitButton);
+		
+		
+		this.add(topPanel, BorderLayout.PAGE_START);
+		
+		showData = new JMenuItem("Wyświetl dane");
+		moreInformation = new JMenuItem("Wstęp teoretyczny");
+		moreInformation.addActionListener(new ActionListener() 
+		{
+			
+			public void actionPerformed(ActionEvent e) 
+			{
+				TheoryWindow moreInformationPanel = new TheoryWindow();
+				moreInformationPanel.setVisible(true);
+			}
+		});
+		
+		choosedElement = "Cez";
+		
+		elementsSubMenu = new JMenu(choosedElement);
+		menu.add(elementsSubMenu);
+
+		elementYtterbium = new JMenuItem("Yb - iterb");
+		elementsSubMenu.add(elementYtterbium);
+		elementYtterbium.addActionListener(new ActionListener() 
+		{
+			
+			public void actionPerformed(ActionEvent e) 
+			{
+				choosedElement = "Iterb";
+				elementsSubMenu.setText(choosedElement);
+			}
+		});
+		
+		elementVanadium = new JMenuItem("V - wanad");
+		elementsSubMenu.add(elementVanadium);
+		elementVanadium.addActionListener(new ActionListener() 
+		{
+			
+			public void actionPerformed(ActionEvent e) 
+			{
+				choosedElement = "Wanad";
+				elementsSubMenu.setText(choosedElement);
+			}
+		});
+		
+		elementCaesium = new JMenuItem("Cs - cez");
+		elementsSubMenu.add(elementCaesium);
+		elementCaesium.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
+				choosedElement = "Cez";
+				elementsSubMenu.setText(choosedElement);
+			}
+		});
+		
+		elementBeryl = new JMenuItem("Be - beryl");
+		elementsSubMenu.add(elementBeryl);
+		elementBeryl.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
+				choosedElement = "Beryl";
+				elementsSubMenu.setText(choosedElement);
+			}
+		});
+		
+		elementFerrum = new JMenuItem("Fe - żelazo");
+		elementsSubMenu.add(elementFerrum);
+		elementFerrum.addActionListener(new ActionListener() 
+		{
+			
+			public void actionPerformed(ActionEvent e) 
+			{
+				choosedElement = "Żelazo";
+				elementsSubMenu.setText(choosedElement);
+			}
+		});
+		
+		elementArgentum = new JMenuItem("Ag - srebro");
+		elementsSubMenu.add(elementArgentum);
+		elementArgentum.addActionListener(new ActionListener() 
+		{
+			
+			public void actionPerformed(ActionEvent e) 
+			{
+				choosedElement = "Srebro";
+				elementsSubMenu.setText(choosedElement);
+			}
+		});
+		
+		
+		aboutProgram = new JMenuItem("O programie");
+		aboutProgram.addActionListener(new ActionListener() 
+		{
+			
+			public void actionPerformed(ActionEvent e) 
+			{
+				JOptionPane.showMessageDialog(
+						informationWindow, "Aplikacja wykonana przez zespół Fotokomórka w ramach projektu na przedmiot Programowanie Obiektowe",
+                            "Informacje",
+                            JOptionPane.PLAIN_MESSAGE);
+			}
+		});
+		menu.add(showData);
+		menu.add(moreInformation);
+		menu.addSeparator();
+		menu.add(aboutProgram);
+		
+		centerPanel = new JPanel();
+		centerPanel.setLayout(new GridLayout(1,2));
+		
+		rightCenterPanel = new JPanel();
+		
+		PhotoEffect photoEffectPanel = new PhotoEffect();
+		PhotoCellSettings  photoCellSettingsPanel = new PhotoCellSettings();
+		
+		//OnOffToggle animationTogglePanel = new OnOffToggle();
+		
+		leftCenterPanel = new JPanel();
+		
+		leftCenterPanel.setLayout(new GridBagLayout());
+		
+		GridBagConstraints c = new GridBagConstraints();
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.ipady = 200;
+		c.weightx = 0.0;
+		c.gridwidth = 3;
+		c.gridx = 0;
+		c.gridy = 1;
+		leftCenterPanel.add(photoEffectPanel, c);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.ipady = 100;
+		c.weighty = 1000;   
+		c.anchor = GridBagConstraints.PAGE_END;
+		c.gridx = 0;       
+		c.gridwidth = 3;   
+		c.gridy = 2;
+		leftCenterPanel.add(photoCellSettingsPanel, c);
+		
+		centerPanel.add(leftCenterPanel);
+		centerPanel.add(rightCenterPanel);
+		
+		
+		this.add(centerPanel, BorderLayout.CENTER);
 	}
 	
-	public static void main(String[] args)
+	public static void main(String[] args) throws FontFormatException, IOException
 	{
-		//tworzenie g��wnego okna
-		Interface mainFrame = new Interface();
-		mainFrame.setLayout(new BorderLayout());
-		//dodane panele
-		PhotoEffect panel=new PhotoEffect();
-		PhotoCellSettings panel1= new PhotoCellSettings();
-		mainFrame.getContentPane().add(panel);
-		mainFrame.add(panel1, BorderLayout.LINE_END);
-		mainFrame.setBounds(500, 500, 900, 600);
-		mainFrame.setVisible(true);
+		Interface window = new Interface();
+		window.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+		window.setVisible(true);
+		window.setTitle("Fotokomórka");
 	}
 }
