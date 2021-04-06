@@ -20,6 +20,7 @@ import org.jfree.data.xy.XYSeriesCollection;
 public class PlotPanel extends JPanel
 {
 	JLabel plotLabel;
+	//selection of plots
 	JCheckBox frequencyPlot, voltagePlot;
 	
 	PlotPanel()
@@ -37,12 +38,12 @@ public class PlotPanel extends JPanel
 		plotLabel.setLocation(50, 50);
 		add(plotLabel, BorderLayout.PAGE_START);
 		
+		//Frequency Plot
 		frequencyPlot=new JCheckBox("Zależność napięcia hamowania od częstotliwości");	
 		frequencyPlot.setFont(f);
 		frequencyPlot.setLocation(50, 100);
 		add(frequencyPlot, BorderLayout.LINE_START);
 		
-		//Frequency Plot
 		XYSeries series = new XYSeries("");
 		series.add(1, 0);
 		series.add(2, 1);
@@ -70,12 +71,12 @@ public class PlotPanel extends JPanel
 	        }
 	    });
 		
-		
+		//BreakVoltage Plot
 		voltagePlot=new JCheckBox("Zależność prądu od przyłożonego napięcia      ");	
 		voltagePlot.setFont(f);
 		voltagePlot.setLocation(50,150);
 		add(voltagePlot, BorderLayout.PAGE_END);
-		//BreakVoltage Plot
+		
 		XYSeries series1 = new XYSeries("");
 		series1.add(-1, 0);
 		series1.add(0.5, 2.5);

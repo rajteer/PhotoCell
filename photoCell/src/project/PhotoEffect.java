@@ -20,17 +20,22 @@ import javax.swing.event.ChangeListener;
 
 public class PhotoEffect extends JPanel
 {
-
+	//picture with measurement system
 	private Image img;
+	
+	//voltmeter
 	JTextField voltmeterTextField;
-	JButton startButton;
-	JButton endButton;
+	
+	//buttons begin and end animation
+	JButton startButton, endButton;
+	
+	//slider of voltage
 	JSlider voltageSlider;
 	
 	public PhotoEffect() throws FontFormatException, IOException
 	{
+		
 		InputStream input = getClass().getResourceAsStream("pht3.png");
-		InputStream input1 = getClass().getResourceAsStream("CursedTimerUlil-Aznm.ttf");
 		try {                
 			 img = ImageIO.read(input);
  		} 
@@ -39,9 +44,9 @@ public class PhotoEffect extends JPanel
  			System.err.println("Blad odczytu obrazka");
  			e.printStackTrace();
 		}
+		
 	    Dimension size = new Dimension(500,300);
 	    Font f = new Font("Monospaced", Font.BOLD, 12);
-	    Font f1 = new Font("Monospaced", Font.BOLD, 24);
 	    setPreferredSize(size);
 	    setMinimumSize(size);
 	    setMaximumSize(size);
@@ -49,14 +54,13 @@ public class PhotoEffect extends JPanel
 	    setLayout(null);
 	    
 	    //new font
+	    InputStream input1 = getClass().getResourceAsStream("CursedTimerUlil-Aznm.ttf");
  		Font font = Font.createFont(Font.TRUETYPE_FONT, input1);
  	    font = font.deriveFont(Font.BOLD,24);
  	    GraphicsEnvironment ge =
  	    GraphicsEnvironment.getLocalGraphicsEnvironment();
  	    ge.registerFont(font);
 	    
-	    
-		//begin and end animation
 		startButton= new JButton("Rozpocznij");
 		startButton.setSize(new Dimension(110, 25));
 		startButton.setLocation(130, 460);
@@ -69,13 +73,11 @@ public class PhotoEffect extends JPanel
 		endButton.setFont(f);
 		add(endButton);
 		
-		//slider of voltage
 	  	voltageSlider= new JSlider(JSlider.HORIZONTAL,-8, 8, 0);
 	  	voltageSlider.setMinorTickSpacing(2);
 	  	voltageSlider.setMajorTickSpacing(4);
 	  	voltageSlider.setSize(new Dimension(180, 30));//70
 	  	voltageSlider.setLocation(150, 420);
-	  	
 	  	voltageSlider.addChangeListener(new ChangeListener()
 	    {           
 	        @Override
@@ -87,7 +89,6 @@ public class PhotoEffect extends JPanel
 	 
 	  	add(voltageSlider);
 	  	
-	  	//voltmeter
 	    voltmeterTextField=new JTextField(String.format("%d", voltageSlider.getValue()));
 	    voltmeterTextField.setSize(new Dimension(30, 40));
 	    voltmeterTextField.setFont(font);
@@ -97,7 +98,6 @@ public class PhotoEffect extends JPanel
 		voltmeterTextField.setSize(70,30);
 		voltmeterTextField.setLocation(210, 260);
 
-	 	
 	}
 		
 	public void paintComponent(Graphics g) 

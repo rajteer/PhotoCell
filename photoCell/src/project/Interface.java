@@ -263,7 +263,6 @@ public class Interface extends JFrame
 		PhotoEffect photoEffectPanel = new PhotoEffect();
 		PhotoCellSettings  photoCellSettingsPanel = new PhotoCellSettings();
 		
-		//OnOffToggle animationTogglePanel = new OnOffToggle();
 		
 		leftCenterPanel = new JPanel();
 		
@@ -293,10 +292,7 @@ public class Interface extends JFrame
 		rightCenterPanel.setLayout(new BorderLayout());
 		PlotPanel rightTopPanel=new PlotPanel();
 		rightCenterPanel.add(rightTopPanel, BorderLayout.NORTH);
-		
-		
-		
-		
+
 		this.add(centerPanel, BorderLayout.CENTER);
 	}
 	

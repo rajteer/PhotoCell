@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 
+//Window with theoretical information
 public class TheoryWindow extends JFrame 
 {
 	JPanel panelTheoryWindow;
