@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -72,7 +73,7 @@ public class PhotoEffect extends JPanel
 		endButton.setFont(f);
 		add(endButton);
 		
-	  	voltageSlider= new JSlider(JSlider.HORIZONTAL,-8, 8, 0);
+	  	voltageSlider= new JSlider(SwingConstants.HORIZONTAL,-8, 8, 0);
 	  	voltageSlider.setMinorTickSpacing(2);
 	  	voltageSlider.setMajorTickSpacing(4);
 	  	voltageSlider.setSize(new Dimension(180, 30));//70
@@ -91,7 +92,7 @@ public class PhotoEffect extends JPanel
 	    voltmeterTextField=new JTextField(String.format("%d", voltageSlider.getValue()));
 	    voltmeterTextField.setSize(new Dimension(30, 40));
 	    voltmeterTextField.setFont(font);
-	    voltmeterTextField.setHorizontalAlignment(JTextField.CENTER); //centering text in JTextField
+	    voltmeterTextField.setHorizontalAlignment(SwingConstants.CENTER); //centering text in JTextField
 	    voltmeterTextField.setEditable(false);
 		add(voltmeterTextField);
 		voltmeterTextField.setSize(70,30);
@@ -99,6 +100,7 @@ public class PhotoEffect extends JPanel
 
 	}
 		
+	@Override
 	public void paintComponent(Graphics g) 
 	{
 		g.drawImage(img, 0, 0, null);

@@ -144,6 +144,7 @@ public class Interface extends JFrame
 		moreInformation.addActionListener(new ActionListener() 
 		{
 			
+			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
 				TheoryWindow moreInformationPanel;
@@ -168,6 +169,7 @@ public class Interface extends JFrame
 		elementYtterbium.addActionListener(new ActionListener() 
 		{
 			
+			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
 				choosedElement = "Iterb";
@@ -180,6 +182,7 @@ public class Interface extends JFrame
 		elementVanadium.addActionListener(new ActionListener() 
 		{
 			
+			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
 				choosedElement = "Wanad";
@@ -191,6 +194,7 @@ public class Interface extends JFrame
 		elementsSubMenu.add(elementCaesium);
 		elementCaesium.addActionListener(new ActionListener() 
 		{
+			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
 				choosedElement = "Cez";
@@ -202,6 +206,7 @@ public class Interface extends JFrame
 		elementsSubMenu.add(elementBeryl);
 		elementBeryl.addActionListener(new ActionListener() 
 		{
+			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
 				choosedElement = "Beryl";
@@ -214,6 +219,7 @@ public class Interface extends JFrame
 		elementFerrum.addActionListener(new ActionListener() 
 		{
 			
+			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
 				choosedElement = "Żelazo";
@@ -226,6 +232,7 @@ public class Interface extends JFrame
 		elementArgentum.addActionListener(new ActionListener() 
 		{
 			
+			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
 				choosedElement = "Srebro";
@@ -238,6 +245,7 @@ public class Interface extends JFrame
 		aboutProgram.addActionListener(new ActionListener() 
 		{
 			
+			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
 				JOptionPane.showMessageDialog(

@@ -16,6 +16,16 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>lib/jcommon-1.0.23.jar</name>
+			<type>1</type>
+			<location>C:/Users/User/Downloads/jfreechart-1.0.19/jfreechart-1.0.19/lib/jcommon-1.0.23.jar</location>
+		</link>
+		<link>
+			<name>lib/jfreechart-1.0.19.jar</name>
+			<type>1</type>
+			<location>C:/Users/User/Downloads/jfreechart-1.0.19/jfreechart-1.0.19/lib/jfreechart-1.0.19.jar</location>
+		</link>
+		<link>
 			<name>src/project/pht3.png</name>
 			<type>1</type>
 			<location>C:/Users/User/Desktop/pht3.png</location>

@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -89,7 +90,7 @@ public class PhotoCellSettings extends JPanel
 		panelElectroMagneticWaveInfo.setLayout(new FlowLayout());
 		this.add(panelElectroMagneticWaveInfo);
 		
-		sliderWaveLength = new JSlider(JSlider.HORIZONTAL, sliderWaveLengthMin, sliderWaveLengthMax, sliderWaveLengthMin);
+		sliderWaveLength = new JSlider(SwingConstants.HORIZONTAL, sliderWaveLengthMin, sliderWaveLengthMax, sliderWaveLengthMin);
 		sliderWaveLength.setPreferredSize(new Dimension(200,50));
 		
 		sliderWaveLength.addChangeListener(new sliderWaveLengthChangeListener());
@@ -138,7 +139,7 @@ public class PhotoCellSettings extends JPanel
 		panelWaveLength.add(textFieldWaveLength);
 		panelWaveLength.add(labelWaveLengthUnit);
 		
-		sliderWaveFrequency = new JSlider(JSlider.HORIZONTAL, sliderWaveFrequencyMin, sliderWaveFrequencyMax, sliderWaveFrequencyMax);
+		sliderWaveFrequency = new JSlider(SwingConstants.HORIZONTAL, sliderWaveFrequencyMin, sliderWaveFrequencyMax, sliderWaveFrequencyMax);
 		sliderWaveFrequency.setPreferredSize(new Dimension(200,50));
 		
 		sliderWaveFrequency.addChangeListener(new sliderWaveFrequencyhChangeListener());
@@ -189,7 +190,7 @@ public class PhotoCellSettings extends JPanel
 		panelWaveFrequency.add(textFieldWaveFrequency);
 		panelWaveFrequency.add(labelWaveFrequencyUnit);
 		
-		sliderLightIntensity = new JSlider(JSlider.HORIZONTAL, sliderLightIntensityMin, sliderLightIntensityMax, sliderLightIntensityMax);
+		sliderLightIntensity = new JSlider(SwingConstants.HORIZONTAL, sliderLightIntensityMin, sliderLightIntensityMax, sliderLightIntensityMax);
 		sliderLightIntensity.setPreferredSize(new Dimension(200,50));
 		
 		sliderLightIntensity.addChangeListener(new sliderLightIntensityChangeListener());
@@ -211,7 +212,7 @@ public class PhotoCellSettings extends JPanel
 					if(number >= 0 && number <= 100)
 					{
 						Main.wave.intensity = number;
-						sliderLightIntensity.setValue((int)Main.wave.intensity);		
+						sliderLightIntensity.setValue(Main.wave.intensity);		
 					}
 					else
 					{
